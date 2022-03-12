@@ -81,44 +81,46 @@ const Home: NextPage = () => {
       </nav>
 
       <main className={styles.main}>
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          <>
-            <div className={styles.resultWrap}>
-              <h2>Result</h2>
-              <div className={styles.resultWrapInnerRight}>
-                <div className={styles.searchBarWrap}>
-                  <input type="text" value={value} onChange={e => setValue(e.target.value)} />
-                  <button>search</button>
-                </div>
-                <button>download</button>
+        <>
+          <div className={styles.resultWrap}>
+            <h2>Result</h2>
+            <div className={styles.resultWrapInnerRight}>
+              <div className={styles.searchBarWrap}>
+                <input type="text" value={value} onChange={e => setValue(e.target.value)} />
+                <button>search</button>
               </div>
+              <button>download</button>
             </div>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th className={styles.spaceOne}></th>
-                  <th>Foxtrot</th>
-                  <th className={styles.spaceTwo}></th>
-                  <th>Golf</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((d, i) => (
-                  <tr key={i}>
-                    <td><span>{d[0]}</span></td>
-                    <td className={styles.spaceOne}></td>
-                    <td>{parseFloat(Number(d[1]).toFixed(5))}</td>
-                    <td className={styles.spaceTwo}></td>
-                    <td>{parseFloat(Number(d[2]).toFixed(5))}</td>
+          </div>
+          {
+            loading ? (
+              <div className={styles.loading}>Loading...</div>
+            ) : (
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th className={styles.spaceOne}></th>
+                    <th>Foxtrot</th>
+                    <th className={styles.spaceTwo}></th>
+                    <th>Golf</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
+                </thead>
+                <tbody>
+                  {data.map((d, i) => (
+                    <tr key={i}>
+                      <td><span>{d[0]}</span></td>
+                      <td className={styles.spaceOne}></td>
+                      <td>{parseFloat(Number(d[1]).toFixed(5))}</td>
+                      <td className={styles.spaceTwo}></td>
+                      <td>{parseFloat(Number(d[2]).toFixed(5))}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )
+          }
+        </>
       </main>
     </div>
   )
