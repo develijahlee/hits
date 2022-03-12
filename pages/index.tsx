@@ -108,11 +108,11 @@ const Home: NextPage = () => {
               <tbody>
                 {data.map((d, i) => (
                   <tr key={i}>
-                    <td>{d[0]}</td>
+                    <td><span>{d[0]}</span></td>
                     <td className={styles.spaceOne}></td>
-                    <td>{d[1]}</td>
+                    <td>{parseFloat(Number(d[1]).toFixed(5))}</td>
                     <td className={styles.spaceTwo}></td>
-                    <td>{d[2]}</td>
+                    <td>{parseFloat(Number(d[2]).toFixed(5))}</td>
                   </tr>
                 ))}
               </tbody>
