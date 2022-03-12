@@ -8,6 +8,7 @@ import styles from '../styles/Home.module.scss'
 const Home: NextPage = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     fetchData()
@@ -83,25 +84,36 @@ const Home: NextPage = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Foxtrot</th>
-                <th>Golf</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((d, i) => (
-                <tr key={i}>
-                  <td>{d[0]}</td>
-                  <td>{d[1]}</td>
-                  <td>{d[2]}</td>
+          <>
+            <div className={styles.resultWrap}>
+              <h2>Result</h2>
+              <div className={styles.resultWrapInnerRight}>
+                <div className={styles.searchBarWrap}>
+                  <input type="text" value={value} onChange={e => setValue(e.target.value)} />
+                  <button>search</button>
+                </div>
+                <button>download</button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Foxtrot</th>
+                  <th>Golf</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-
+              </thead>
+              <tbody>
+                {data.map((d, i) => (
+                  <tr key={i}>
+                    <td>{d[0]}</td>
+                    <td>{d[1]}</td>
+                    <td>{d[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
       </main>
     </div>
