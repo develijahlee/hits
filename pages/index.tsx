@@ -101,9 +101,29 @@ const Home: NextPage = () => {
                   <tr>
                     <th>Name</th>
                     <th className={styles.spaceOne}></th>
-                    <th>Foxtrot</th>
+                    <th className={styles.foxTrot}>
+                      <span>Foxtrot</span>
+                      <div>
+                        <button>
+                          <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
+                        </button>
+                        <button>
+                          <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
+                        </button>
+                      </div>
+                    </th>
                     <th className={styles.spaceTwo}></th>
-                    <th>Golf</th>
+                    <th className={styles.golf}>
+                      <span>Golf</span>
+                      <div>
+                        <button>
+                          <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
+                        </button>
+                        <button>
+                          <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
+                        </button>
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
