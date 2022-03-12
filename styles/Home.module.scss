@@ -2,3 +2,44 @@
   padding: 14px 0 13px 15px;
   box-shadow: 0px 1px 4px rgba(21, 34, 50, 0.25);
 }
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1336px;
+  height: 78px;
+  margin: 23px auto 0 auto;
+  padding: 0 27px 0 30px;
+  background: #FCFEFE;
+  box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  font-size: 20px;
+  line-height: 24px;
+  ul {
+    display: flex;
+    padding-left: 0;
+    list-style-type: none;
+    li {
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 110px;
+        height: 40px;
+        color: #000;
+      }
+      &:not(:last-child) {
+        font-weight: 500;
+        margin-right: 20px;
+      }
+      &:last-child {
+        font-weight: 700;
+        text-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+  span {
+    color: #0D9991;
+  }
+}
