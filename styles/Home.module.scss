@@ -49,7 +49,10 @@
   justify-content: space-between;
   width: 1191px;
   margin: 79px auto 0 auto;
+  padding-bottom: 48px;
+  border-bottom: 1px solid #0D9991;
   h2 {
+    margin: 0;
     font-weight: 700;
     font-size: 32px;
     line-height: 38px;
@@ -70,6 +73,9 @@
     font-size: 24px;
     line-height: 29px;
     color: #7879F1;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
@@ -79,6 +85,7 @@
   input {
     width: 284px;
     height: 55px;
+    font-size: 24px;
     border: 1px solid #7879F1;
   }
   button {
@@ -90,5 +97,46 @@
     font-size: 24px;
     line-height: 29px;
     color: #7879F1;
+    &:hover {
+      cursor: pointer;
+    }
   }
+}
+
+.table {
+  width: 1182px;
+  margin: 48px auto 0 auto;
+  border-collapse: collapse;
+  thead {
+    display: block;
+  }
+  th {
+    padding: 0;
+    &:nth-child(odd) {
+      width: 278px;
+      height: 41px;
+    }
+  }
+  td {
+    padding: 0;
+    text-align: center;
+    &:nth-child(odd) {
+      width: 278px;
+      height: 41px;
+    }
+  }
+  tbody {
+    display: block;
+    max-height: 800px;
+    overflow: auto;
+    border: 1px solid red;
+  }
+}
+
+.spaceOne {
+  width: 156px;
+}
+
+.spaceTwo {
+  width: 191px;
 }

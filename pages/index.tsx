@@ -95,11 +95,13 @@ const Home: NextPage = () => {
                 <button>download</button>
               </div>
             </div>
-            <table>
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th>Name</th>
+                  <th className={styles.spaceOne}></th>
                   <th>Foxtrot</th>
+                  <th className={styles.spaceTwo}></th>
                   <th>Golf</th>
                 </tr>
               </thead>
@@ -107,7 +109,9 @@ const Home: NextPage = () => {
                 {data.map((d, i) => (
                   <tr key={i}>
                     <td>{d[0]}</td>
+                    <td className={styles.spaceOne}></td>
                     <td>{d[1]}</td>
+                    <td className={styles.spaceTwo}></td>
                     <td>{d[2]}</td>
                   </tr>
                 ))}
