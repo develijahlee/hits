@@ -278,8 +278,13 @@ const SubTableRow = ({ d, isOpen, name, setSelected }: { d: any, isOpen: boolean
   const [isSelected, setIsSelected] = useState(false)
 
   const upDateSelected = (): void => {
-    setIsSelected(true)
-    setSelected((selected: any) => [...selected, name + d[0]])
+    if (isSelected) {
+      setIsSelected(false)
+      setSelected((selected: any) => [...selected].filter(item => item !== name + d[0]))
+    } else {
+      setIsSelected(true)
+      setSelected((selected: any) => [...selected, name + d[0]])
+    }
   }
 
   return (
