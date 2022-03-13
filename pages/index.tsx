@@ -12,14 +12,15 @@ const Home: NextPage = () => {
   const [value, setValue] = useState("");
   const [selected, setSelected] = useState([])
   const [removed, setRemoved] = useState("")
+  const [toggleRemoved, setToggleRemoved] = useState(false)
 
   useEffect(() => {
     fetchData()
   }, [])
 
   // useEffect(() => {
-  //   console.log('removed outer', removed)
-  // }, [removed])
+  //   console.log('toggleRemoved', toggleRemoved)
+  // }, [toggleRemoved])
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -64,6 +65,7 @@ const Home: NextPage = () => {
   const removeSelected = (value: string) => {
     setSelected(selected => [...selected].filter(item => item !== value))
     setRemoved(value)
+    setToggleRemoved(value => !value)
   }
 
   return (
@@ -168,7 +170,7 @@ const Home: NextPage = () => {
                 </thead>
                 <tbody>
                   {data.map((d) => (
-                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} removed={removed} />
+                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} removed={removed} toggleRemoved={toggleRemoved} />
                   ))}
                 </tbody>
               </table>
@@ -180,7 +182,7 @@ const Home: NextPage = () => {
   )
 }
 
-const TableRow = ({ d, setSelected, removed }: { d: any, setSelected: Function, removed: string }) => {
+const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelected: Function, removed: string, toggleRemoved: boolean }) => {
   const [subData, setSubData] = useState([])
   const [showSubData, setShowSubData] = useState(false)
   const [subLoading, setSubLoading] = useState(false)
@@ -269,7 +271,7 @@ const TableRow = ({ d, setSelected, removed }: { d: any, setSelected: Function, 
             </td>
           </tr>
           {subData.map((d) => (
-            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected} removed={removed}></SubTableRow>
+            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected} removed={removed} toggleRemoved={toggleRemoved}></SubTableRow>
           ))}
         </>
       ) : (
@@ -280,14 +282,14 @@ const TableRow = ({ d, setSelected, removed }: { d: any, setSelected: Function, 
   )
 }
 
-const SubTableRow = ({ d, isOpen, name, setSelected, removed }: { d: any, isOpen: boolean, name: string, setSelected: Function, removed: string }) => {
+const SubTableRow = ({ d, isOpen, name, setSelected, removed, toggleRemoved }: { d: any, isOpen: boolean, name: string, setSelected: Function, removed: string, toggleRemoved: boolean }) => {
   const [isSelected, setIsSelected] = useState(false)
 
   useEffect(() => {
     if (removed === name + d[0]) {
       setIsSelected(false)
     }
-  }, [removed, d, name])
+  }, [removed, d, name, toggleRemoved])
 
   const upDateSelected = (): void => {
     if (isSelected) {
