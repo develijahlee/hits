@@ -65,6 +65,12 @@
   }
 }
 
+.selectedWrap {
+  width: 1191px;
+  margin: 79px auto 0 auto;
+  border: 1px solid red;
+}
+
 .resultWrapInnerRight {
   display: flex;
   align-items: center;
@@ -226,6 +232,12 @@
   height: auto;
 }
 
+.subDataTrData {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .isClosed {
   display: none;
 }
@@ -286,4 +298,8 @@
 
 .subTableGolfWrap {
   padding-left: 111px!important; 
+}
+
+.isSelected {
+  background: #C4C4C4
 }

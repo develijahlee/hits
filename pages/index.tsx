@@ -10,6 +10,7 @@ const Home: NextPage = () => {
   const [copyData, setCopyData] = useState([])
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState("");
+  const [selected, setSelected] = useState([])
 
   useEffect(() => {
     fetchData()
@@ -120,6 +121,11 @@ const Home: NextPage = () => {
               <button>download</button>
             </div>
           </div>
+          <div className={styles.selectedWrap}>
+            {selected.map((s, i) => (
+              <p key={i}>{s}</p>
+            ))}
+          </div>
           {
             loading ? (
               <div className={styles.loading}>Loading...</div>
@@ -156,7 +162,7 @@ const Home: NextPage = () => {
                 </thead>
                 <tbody>
                   {data.map((d) => (
-                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} />
+                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} />
                   ))}
                 </tbody>
               </table>
@@ -168,15 +174,12 @@ const Home: NextPage = () => {
   )
 }
 
-const TableRow = ({ d }: { d: any }) => {
+const TableRow = ({ d, setSelected }: { d: any, setSelected: Function }) => {
   const [subData, setSubData] = useState([])
   const [showSubData, setShowSubData] = useState(false)
   const [subLoading, setSubLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-
-  // useEffect(() => {
-  //   console.log('subData', subData)
-  // }, [subData])
+  const [name, setName] = useState(d[0])
 
   const fetchSubData = async (name: string): Promise<void> => {
     setIsOpen(open => !open)
@@ -259,20 +262,8 @@ const TableRow = ({ d }: { d: any }) => {
               </div>
             </td>
           </tr>
-          {subData.map((d, i) => (
-            <tr key={i} className={`${styles.subDataTrData} ${isOpen ? '' : styles.isClosed}`}>
-              <td>
-                {d[0]}
-              </td>
-              <td className={styles.spaceOne}></td>
-              <td>
-                {parseFloat(Number(d[1]).toFixed(5))}
-              </td>
-              <td className={styles.spaceTwo}></td>
-              <td>
-                {parseFloat(Number(d[2]).toFixed(5))}
-              </td>
-            </tr>
+          {subData.map((d) => (
+            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected}></SubTableRow>
           ))}
         </>
       ) : (
@@ -280,6 +271,31 @@ const TableRow = ({ d }: { d: any }) => {
         </>
       )}
     </>
+  )
+}
+
+const SubTableRow = ({ d, isOpen, name, setSelected }: { d: any, isOpen: boolean, name: string, setSelected: Function }) => {
+  const [isSelected, setIsSelected] = useState(false)
+
+  const upDateSelected = (): void => {
+    setIsSelected(true)
+    setSelected((selected: any) => [...selected, name + d[0]])
+  }
+
+  return (
+    <tr onClick={upDateSelected} className={`${styles.subDataTrData} ${isOpen ? '' : styles.isClosed} ${isSelected ? styles.isSelected : ''}`}>
+      <td>
+        {d[0]}
+      </td>
+      <td className={styles.spaceOne}></td>
+      <td>
+        {parseFloat(Number(d[1]).toFixed(5))}
+      </td>
+      <td className={styles.spaceTwo}></td>
+      <td>
+        {parseFloat(Number(d[2]).toFixed(5))}
+      </td>
+    </tr>
   )
 }
 
