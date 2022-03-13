@@ -14,9 +14,9 @@ const Home: NextPage = () => {
     fetchData()
   }, [])
 
-  useEffect(() => {
-    console.log('data', data)
-  }, [data])
+  // useEffect(() => {
+  //   console.log('data', data)
+  // }, [data])
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -139,8 +139,8 @@ const Home: NextPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((d, i) => (
-                    <TableRow d={d} key={i} />
+                  {data.map((d) => (
+                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} />
                   ))}
                 </tbody>
               </table>
