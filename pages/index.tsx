@@ -160,18 +160,22 @@ const TableRow = ({ d }: { d: any }) => {
   const [subData, setSubData] = useState([])
   const [showSubData, setShowSubData] = useState(false)
   const [subLoading, setSubLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const fetchSubData = async (name: string): Promise<void> => {
-    try {
-      setSubLoading(true)
-      const response = await fetch(`http://testapi.hits.ai/result/${name}`)
-      const data = await response.json()
-      setSubData(data)
-      setShowSubData(true)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setSubLoading(false)
+    setIsOpen(open => !open)
+    if (!showSubData) {
+      try {
+        setSubLoading(true)
+        const response = await fetch(`http://testapi.hits.ai/result/${name}`)
+        const data = await response.json()
+        setSubData(data)
+        setShowSubData(true)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setSubLoading(false)
+      }
     }
   }
 
@@ -190,13 +194,13 @@ const TableRow = ({ d }: { d: any }) => {
         </tr>
       ) : showSubData ? (
         <>
-          <tr>
+          <tr className={`${styles.subDataTrBtn} ${isOpen ? '' : styles.isClosed}`}>
             <td>
               <button>check all</button>
               <button>clear</button>
             </td>
           </tr>
-          <tr>
+          <tr className={`${styles.subDataTrHeader} ${isOpen ? '' : styles.isClosed}`}>
             <td>
               id
             </td>
@@ -210,7 +214,7 @@ const TableRow = ({ d }: { d: any }) => {
             </td>
           </tr>
           {subData.map((d, i) => (
-            <tr key={i}>
+            <tr key={i} className={`${styles.subDataTrData} ${isOpen ? '' : styles.isClosed}`}>
               <td>
                 {d[0]}
               </td>
