@@ -11,14 +11,15 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState("");
   const [selected, setSelected] = useState([])
+  const [removed, setRemoved] = useState("")
 
   useEffect(() => {
     fetchData()
   }, [])
 
   // useEffect(() => {
-  //   console.log('data', data)
-  // }, [data])
+  //   console.log('removed outer', removed)
+  // }, [removed])
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -58,6 +59,11 @@ const Home: NextPage = () => {
     } else if (option === 'sortGolfDescending') {
       setData(data => [...data].sort((a, b) => b[2] - a[2]))
     }
+  }
+
+  const removeSelected = (value: string) => {
+    setSelected(selected => [...selected].filter(item => item !== value))
+    setRemoved(value)
   }
 
   return (
@@ -123,7 +129,7 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.selectedWrap}>
             {selected.map((s, i) => (
-              <p key={i}>{s}</p>
+              <p onClick={() => removeSelected(s)} key={s + i}>{s}</p>
             ))}
           </div>
           {
@@ -162,7 +168,7 @@ const Home: NextPage = () => {
                 </thead>
                 <tbody>
                   {data.map((d) => (
-                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} />
+                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} removed={removed} />
                   ))}
                 </tbody>
               </table>
@@ -174,7 +180,7 @@ const Home: NextPage = () => {
   )
 }
 
-const TableRow = ({ d, setSelected }: { d: any, setSelected: Function }) => {
+const TableRow = ({ d, setSelected, removed }: { d: any, setSelected: Function, removed: string }) => {
   const [subData, setSubData] = useState([])
   const [showSubData, setShowSubData] = useState(false)
   const [subLoading, setSubLoading] = useState(false)
@@ -263,7 +269,7 @@ const TableRow = ({ d, setSelected }: { d: any, setSelected: Function }) => {
             </td>
           </tr>
           {subData.map((d) => (
-            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected}></SubTableRow>
+            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected} removed={removed}></SubTableRow>
           ))}
         </>
       ) : (
@@ -274,8 +280,14 @@ const TableRow = ({ d, setSelected }: { d: any, setSelected: Function }) => {
   )
 }
 
-const SubTableRow = ({ d, isOpen, name, setSelected }: { d: any, isOpen: boolean, name: string, setSelected: Function }) => {
+const SubTableRow = ({ d, isOpen, name, setSelected, removed }: { d: any, isOpen: boolean, name: string, setSelected: Function, removed: string }) => {
   const [isSelected, setIsSelected] = useState(false)
+
+  useEffect(() => {
+    if (removed === name + d[0]) {
+      setIsSelected(false)
+    }
+  }, [removed, d, name])
 
   const upDateSelected = (): void => {
     if (isSelected) {

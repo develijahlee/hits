@@ -71,6 +71,9 @@
   border: 1px solid red;
   p {
     border: 1px solid blue;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
