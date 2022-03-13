@@ -144,13 +144,7 @@ const Home: NextPage = () => {
                 </thead>
                 <tbody>
                   {data.map((d, i) => (
-                    <tr key={i}>
-                      <td><span>{d[0]}</span></td>
-                      <td className={styles.spaceOne}></td>
-                      <td>{parseFloat(Number(d[1]).toFixed(5))}</td>
-                      <td className={styles.spaceTwo}></td>
-                      <td>{parseFloat(Number(d[2]).toFixed(5))}</td>
-                    </tr>
+                    <TableRow d={d} key={i} />
                   ))}
                 </tbody>
               </table>
@@ -159,6 +153,83 @@ const Home: NextPage = () => {
         </>
       </main>
     </div>
+  )
+}
+
+const TableRow = ({ d }: { d: any }) => {
+  const [subData, setSubData] = useState([])
+  const [showSubData, setShowSubData] = useState(false)
+  const [subLoading, setSubLoading] = useState(false)
+
+  const fetchSubData = async (name: string): Promise<void> => {
+    try {
+      setSubLoading(true)
+      const response = await fetch(`http://testapi.hits.ai/result/${name}`)
+      const data = await response.json()
+      setSubData(data)
+      setShowSubData(true)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setSubLoading(false)
+    }
+  }
+
+  return (
+    <>
+      <tr className={styles.tableRow}>
+        <td onClick={() => fetchSubData(d[0])} className={styles.name}><span>{d[0]}</span></td>
+        <td className={styles.spaceOne}></td>
+        <td>{parseFloat(Number(d[1]).toFixed(5))}</td>
+        <td className={styles.spaceTwo}></td>
+        <td>{parseFloat(Number(d[2]).toFixed(5))}</td>
+      </tr>
+      {subLoading ? (
+        <tr>
+          <td>Loading...</td>
+        </tr>
+      ) : showSubData ? (
+        <>
+          <tr>
+            <td>
+              <button>check all</button>
+              <button>clear</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              id
+            </td>
+            <td className={styles.spaceOne}></td>
+            <td>
+              Foxtrot
+            </td>
+            <td className={styles.spaceTwo}></td>
+            <td>
+              Golf
+            </td>
+          </tr>
+          {subData.map((d, i) => (
+            <tr key={i}>
+              <td>
+                {d[0]}
+              </td>
+              <td className={styles.spaceOne}></td>
+              <td>
+                {d[1]}
+              </td>
+              <td className={styles.spaceTwo}></td>
+              <td>
+                {d[2]}
+              </td>
+            </tr>
+          ))}
+        </>
+      ) : (
+        <>
+        </>
+      )}
+    </>
   )
 }
 

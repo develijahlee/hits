@@ -132,13 +132,13 @@
     display: block;
     max-height: 800px;
     overflow: auto;
-    tr {
-      display: block;
-      padding: 6px 0 20px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-      &:first-child {
-        margin-top: 16px;
-      }
+  }
+  .tableRow {
+    display: block;
+    padding: 6px 0 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    &:first-child {
+      margin-top: 16px;
     }
   }
   td {
@@ -158,6 +158,12 @@
       border: 1px solid #0D9991;
       color: #0D9991;
     }
+  }
+}
+
+.name {
+  &:hover {
+    cursor: pointer;
   }
 }
 
