@@ -210,8 +210,8 @@ const TableRow = ({ d }: { d: any }) => {
         <>
           <tr className={`${styles.subDataTrBtn} ${isOpen ? '' : styles.isClosed}`}>
             <td>
-              <button>check all</button>
-              <button>clear</button>
+              <button className={styles.checkAllBtn}>check all</button>
+              <button className={styles.clearBtn}>clear</button>
             </td>
           </tr>
           <tr className={`${styles.subDataTrHeader} ${isOpen ? '' : styles.isClosed}`}>
