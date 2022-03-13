@@ -31,20 +31,16 @@ const Home: NextPage = () => {
     }
   }
 
-  const sortFoxtrotAscending = (): void => {
-    setData(data => [...data].sort((a, b) => a[1] - b[1]))
-  }
-
-  const sortFoxtrotDescending = (): void => {
-    setData(data => [...data].sort((a, b) => b[1] - a[1]))
-  }
-
-  const sortGolfAscending = (): void => {
-    setData(data => [...data].sort((a, b) => a[2] - b[2]))
-  }
-
-  const sortGolfDescending = (): void => {
-    setData(data => [...data].sort((a, b) => b[2] - a[2]))
+  const sortData = (option: string): void => {
+    if (option === 'sortFoxtrotAscending') {
+      setData(data => [...data].sort((a, b) => a[1] - b[1]))
+    } else if (option === 'sortFoxtrotDescending') {
+      setData(data => [...data].sort((a, b) => b[1] - a[1]))
+    } else if (option === 'sortGolfAscending') {
+      setData(data => [...data].sort((a, b) => a[2] - b[2]))
+    } else if (option === 'sortGolfDescending') {
+      setData(data => [...data].sort((a, b) => b[2] - a[2]))
+    }
   }
 
   return (
@@ -120,10 +116,10 @@ const Home: NextPage = () => {
                     <th className={styles.foxTrot}>
                       <span>Foxtrot</span>
                       <div>
-                        <button onClick={sortFoxtrotAscending}>
+                        <button onClick={() => sortData('sortFoxtrotAscending')}>
                           <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
-                        <button onClick={sortFoxtrotDescending}>
+                        <button onClick={() => sortData('sortFoxtrotDescending')}>
                           <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
                       </div>
@@ -132,10 +128,10 @@ const Home: NextPage = () => {
                     <th className={styles.golf}>
                       <span>Golf</span>
                       <div>
-                        <button onClick={sortGolfAscending}>
+                        <button onClick={() => sortData('sortGolfAscending')}>
                           <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
-                        <button onClick={sortGolfDescending}>
+                        <button onClick={() => sortData('sortGolfDescending')}>
                           <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
                       </div>
@@ -179,6 +175,18 @@ const TableRow = ({ d }: { d: any }) => {
     }
   }
 
+  const sortSubData = (option: string): void => {
+    if (option === 'sortFoxtrotAscending') {
+      setSubData(data => [...data].sort((a, b) => a[1] - b[1]))
+    } else if (option === 'sortFoxtrotDescending') {
+      setSubData(data => [...data].sort((a, b) => b[1] - a[1]))
+    } else if (option === 'sortGolfAscending') {
+      setSubData(data => [...data].sort((a, b) => a[2] - b[2]))
+    } else if (option === 'sortGolfDescending') {
+      setSubData(data => [...data].sort((a, b) => b[2] - a[2]))
+    }
+  }
+
   return (
     <>
       <tr className={styles.tableRow}>
@@ -206,11 +214,27 @@ const TableRow = ({ d }: { d: any }) => {
             </td>
             <td className={styles.spaceOne}></td>
             <td>
-              Foxtrot
+              <span>Foxtrot</span>
+              <div>
+                <button onClick={() => sortSubData('sortFoxtrotAscending')}>
+                  <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
+                </button>
+                <button onClick={() => sortSubData('sortFoxtrotDescending')}>
+                  <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
+                </button>
+              </div>
             </td>
             <td className={styles.spaceTwo}></td>
             <td>
-              Golf
+              <span>Golf</span>
+              <div>
+                <button onClick={() => sortSubData('sortGolfAscending')}>
+                  <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
+                </button>
+                <button onClick={() => sortSubData('sortGolfDescending')}>
+                  <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
+                </button>
+              </div>
             </td>
           </tr>
           {subData.map((d, i) => (
@@ -220,11 +244,11 @@ const TableRow = ({ d }: { d: any }) => {
               </td>
               <td className={styles.spaceOne}></td>
               <td>
-                {d[1]}
+                {parseFloat(Number(d[1]).toFixed(5))}
               </td>
               <td className={styles.spaceTwo}></td>
               <td>
-                {d[2]}
+                {parseFloat(Number(d[2]).toFixed(5))}
               </td>
             </tr>
           ))}

@@ -151,17 +151,17 @@
       width: 278px;
       height: 41px;
     }
-    span {
-      width: 90px;
-      height: 35px;
-      padding: 3px;
-      border: 1px solid #0D9991;
-      color: #0D9991;
-    }
   }
 }
 
 .name {
+  span {
+    width: 90px;
+    height: 35px;
+    padding: 3px;
+    border: 1px solid #0D9991;
+    color: #0D9991;
+  }
   &:hover {
     cursor: pointer;
   }
