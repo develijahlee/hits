@@ -158,6 +158,10 @@ const TableRow = ({ d }: { d: any }) => {
   const [subLoading, setSubLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
+  // useEffect(() => {
+  //   console.log('subData', subData)
+  // }, [subData])
+
   const fetchSubData = async (name: string): Promise<void> => {
     setIsOpen(open => !open)
     if (!showSubData) {
@@ -172,6 +176,8 @@ const TableRow = ({ d }: { d: any }) => {
       } finally {
         setSubLoading(false)
       }
+    } else if (showSubData && !isOpen) {
+      setSubData(data => [...data].sort((a, b) => a[0] - b[0]))
     }
   }
 
