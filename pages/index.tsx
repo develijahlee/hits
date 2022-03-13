@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, KeyboardEvent } from 'react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -7,6 +7,7 @@ import styles from '../styles/Home.module.scss'
 
 const Home: NextPage = () => {
   const [data, setData] = useState([])
+  const [copyData, setCopyData] = useState([])
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState("");
 
@@ -24,10 +25,25 @@ const Home: NextPage = () => {
       const response = await fetch('http://testapi.hits.ai/result/')
       const data = await response.json()
       setData(data)
+      setCopyData(data)
     } catch (error) {
       console.error(error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const searchData = (): void => {
+    if (value.length > 0) {
+      setData(copyData.filter((d: any) => d[0] === value))
+    } else if (value.length === 0) {
+      setData(copyData)
+    }
+  }
+
+  const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      searchData()
     }
   }
 
@@ -98,8 +114,8 @@ const Home: NextPage = () => {
             <h2>Result</h2>
             <div className={styles.resultWrapInnerRight}>
               <div className={styles.searchBarWrap}>
-                <input type="text" value={value} onChange={e => setValue(e.target.value)} />
-                <button>search</button>
+                <input type="text" value={value} onChange={e => setValue(e.target.value)} onKeyDown={(e) => handleOnEnter(e)} />
+                <button onClick={searchData}>search</button>
               </div>
               <button>download</button>
             </div>
