@@ -31,6 +31,22 @@ const Home: NextPage = () => {
     }
   }
 
+  const sortFoxtrotAscending = (): void => {
+    setData(data => [...data].sort((a, b) => a[1] - b[1]))
+  }
+
+  const sortFoxtrotDescending = (): void => {
+    setData(data => [...data].sort((a, b) => b[1] - a[1]))
+  }
+
+  const sortGolfAscending = (): void => {
+    setData(data => [...data].sort((a, b) => a[2] - b[2]))
+  }
+
+  const sortGolfDescending = (): void => {
+    setData(data => [...data].sort((a, b) => b[2] - a[2]))
+  }
+
   return (
     <div>
       <Head>
@@ -104,10 +120,10 @@ const Home: NextPage = () => {
                     <th className={styles.foxTrot}>
                       <span>Foxtrot</span>
                       <div>
-                        <button>
+                        <button onClick={sortFoxtrotAscending}>
                           <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
-                        <button>
+                        <button onClick={sortFoxtrotDescending}>
                           <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
                       </div>
@@ -116,10 +132,10 @@ const Home: NextPage = () => {
                     <th className={styles.golf}>
                       <span>Golf</span>
                       <div>
-                        <button>
+                        <button onClick={sortGolfAscending}>
                           <Image src="/images/up-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
-                        <button>
+                        <button onClick={sortGolfDescending}>
                           <Image src="/images/down-arrow.svg" alt="logo" width={13} height={14}></Image>
                         </button>
                       </div>
