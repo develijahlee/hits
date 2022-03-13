@@ -219,7 +219,7 @@ const TableRow = ({ d }: { d: any }) => {
               id
             </td>
             <td className={styles.spaceOne}></td>
-            <td>
+            <td className={styles.subTableFoxtrotWrap}>
               <span>Foxtrot</span>
               <div>
                 <button onClick={() => sortSubData('sortFoxtrotAscending')}>
@@ -231,7 +231,7 @@ const TableRow = ({ d }: { d: any }) => {
               </div>
             </td>
             <td className={styles.spaceTwo}></td>
-            <td>
+            <td className={styles.subTableGolfWrap}>
               <span>Golf</span>
               <div>
                 <button onClick={() => sortSubData('sortGolfAscending')}>

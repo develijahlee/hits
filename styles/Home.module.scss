@@ -136,11 +136,8 @@
   }
   .tableRow {
     display: block;
-    padding: 6px 0 20px 0;
+    padding: 23px 0 20px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    &:first-child {
-      margin-top: 16px;
-    }
   }
   .tableRow,
   .subDataTrHeader {
@@ -220,8 +217,12 @@
   }
 }
 
+.subDataTrHeader {
+  padding-bottom: 17px;
+}
+
 .subDataTrBtn {
-  padding-top: 20px;
+  padding: 20px 0 9px 0;
   height: auto;
 }
 
@@ -230,8 +231,9 @@
 }
 
 .checkAllBtn {
-  width: 102;
+  width: 102px;
   height: 34px;
+  margin-right: 12px;
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
@@ -244,7 +246,7 @@
 }
 
 .clearBtn {
-  width: 102;
+  width: 102px;
   height: 34px;
   font-weight: 700;
   font-size: 18px;
@@ -255,4 +257,33 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.subTableFoxtrotWrap,
+.subTableGolfWrap {
+  overflow: auto;
+  span {
+    float: left;
+  }
+  div {
+    float: left;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    button {
+      background: none;
+      border: 0;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.subTableFoxtrotWrap {
+  padding-left: 65px!important;
+}
+
+.subTableGolfWrap {
+  padding-left: 111px!important; 
 }
