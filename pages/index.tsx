@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux'
+import { increment, decrement } from '../slices/counterSlice';
 
 const Home: NextPage = () => {
   const [data, setData] = useState([])
@@ -13,6 +15,9 @@ const Home: NextPage = () => {
   const [selected, setSelected] = useState<string[]>([])
   const [removed, setRemoved] = useState("")
   const [toggleRemoved, setToggleRemoved] = useState(false)
+
+  const count = useSelector((state: RootStateOrAny) => state.counter.value)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchData()
@@ -118,6 +123,11 @@ const Home: NextPage = () => {
         <>
           <div className={styles.resultWrap}>
             <h2>Result</h2>
+            <div>
+              <p>count {count}</p>
+              <button onClick={() => dispatch(increment())}>Increment State</button>
+              <button onClick={() => dispatch(decrement())}>Increment State</button>
+            </div>
             <div className={styles.resultWrapInnerRight}>
               <div className={styles.searchBarWrap}>
                 <input type="text" value={value} onChange={e => setValue(e.target.value)} onKeyDown={(e) => handleOnEnter(e)} />
