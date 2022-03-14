@@ -77,13 +77,28 @@
 .selectedWrap {
   width: 1191px;
   margin: 79px auto 0 auto;
-  border: 1px solid red;
-  p {
-    border: 1px solid blue;
+  background: #eee;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  div {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    &:not(:last-child) {
+      margin: 0 0 15px 0;
+    }
     &:hover {
       cursor: pointer;
     }
   }
+  p {
+    margin: 0 10px 0 0;
+  }
+}
+
+.selectedWrapPadding {
+  padding: 20px;
 }
 
 .resultWrapInnerRight {

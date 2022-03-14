@@ -129,9 +129,12 @@ const Home: NextPage = () => {
               <button>download</button>
             </div>
           </div>
-          <div className={styles.selectedWrap}>
+          <div className={`${styles.selectedWrap} ${selected.length > 0 ? styles.selectedWrapPadding : ''}`}>
             {selected.map((s, i) => (
-              <p onClick={() => removeSelected(s)} key={s + i}>{s.substring(0, s.indexOf(' '))}</p>
+              <div key={s + i} onClick={() => removeSelected(s)}>
+                <p>{s.substring(0, s.indexOf(' '))}</p>
+                <Image src="/images/delete.svg" alt="logo" width={20} height={20}></Image>
+              </div>
             ))}
           </div>
           {
