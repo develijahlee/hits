@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   const [copyData, setCopyData] = useState([])
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState("");
-  const [selected, setSelected] = useState([])
+  const [selected, setSelected] = useState<string[]>([])
   const [removed, setRemoved] = useState("")
   const [toggleRemoved, setToggleRemoved] = useState(false)
 
@@ -131,7 +131,7 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.selectedWrap}>
             {selected.map((s, i) => (
-              <p onClick={() => removeSelected(s)} key={s + i}>{s}</p>
+              <p onClick={() => removeSelected(s)} key={s + i}>{s.substring(0, s.indexOf(' '))}</p>
             ))}
           </div>
           {
@@ -286,7 +286,7 @@ const SubTableRow = ({ d, isOpen, name, setSelected, removed, toggleRemoved }: {
   const [isSelected, setIsSelected] = useState(false)
 
   useEffect(() => {
-    if (removed === name + d[0]) {
+    if (removed === name + d[0] + ' ' + d[1] + d[2]) {
       setIsSelected(false)
     }
   }, [removed, d, name, toggleRemoved])
@@ -294,10 +294,10 @@ const SubTableRow = ({ d, isOpen, name, setSelected, removed, toggleRemoved }: {
   const upDateSelected = (): void => {
     if (isSelected) {
       setIsSelected(false)
-      setSelected((selected: any) => [...selected].filter(item => item !== name + d[0]))
+      setSelected((selected: any) => [...selected].filter(item => item !== name + d[0] + ' ' + d[1] + d[2]))
     } else {
       setIsSelected(true)
-      setSelected((selected: any) => [...selected, name + d[0]])
+      setSelected((selected: any) => [...selected, name + d[0] + ' ' + d[1] + d[2]])
     }
   }
 
