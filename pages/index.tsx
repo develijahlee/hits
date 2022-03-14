@@ -230,7 +230,7 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
         <td>{parseFloat(Number(d[2]).toFixed(5))}</td>
       </tr>
       {subLoading ? (
-        <tr>
+        <tr className={styles.subLoading}>
           <td>Loading...</td>
         </tr>
       ) : showSubData ? (

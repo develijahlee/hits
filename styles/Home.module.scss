@@ -50,6 +50,15 @@
   text-align: center;
 }
 
+.subLoading {
+  > td {
+    display: block;
+    margin-left: 100px;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
 .resultWrap {
   display: flex;
   justify-content: space-between;
