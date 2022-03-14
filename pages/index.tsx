@@ -16,11 +16,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     fetchData()
+    window.localStorage.removeItem('subTableData')
   }, [])
-
-  // useEffect(() => {
-  //   console.log('toggleRemoved', toggleRemoved)
-  // }, [toggleRemoved])
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -191,6 +188,16 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
   const [subLoading, setSubLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState(d[0])
+  // const [subTableData, setSubTableData] = useState([])
+
+  // useEffect(() => {
+  //   const list = JSON.parse(window.localStorage.getItem('subTableData') || '{}')
+  //   setSubTableData(list)
+  // }, [])
+
+  // useEffect(() => {
+  //   console.log('subTableData', subTableData)
+  // }, [subTableData])
 
   const fetchSubData = async (name: string): Promise<void> => {
     setIsOpen(open => !open)
@@ -200,6 +207,7 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
         const response = await fetch(`http://testapi.hits.ai/result/${name}`)
         const data = await response.json()
         setSubData(data)
+        setLocalStorage(data)
         setShowSubData(true)
       } catch (error) {
         console.error(error)
@@ -221,6 +229,13 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
     } else if (option === 'sortGolfDescending') {
       setSubData(data => [...data].sort((a, b) => b[2] - a[2]))
     }
+  }
+
+  const setLocalStorage = (data: any): void => {
+    const list = JSON.parse(window.localStorage.getItem('subTableData') || '{}')
+    const id = `${d[0] + d[1] + d[2]}`
+    const test = { [id]: [...data], ...list }
+    window.localStorage.setItem('subTableData', JSON.stringify(test))
   }
 
   return (
