@@ -188,16 +188,16 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
   const [subLoading, setSubLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState(d[0])
-  // const [subTableData, setSubTableData] = useState([])
 
-  // useEffect(() => {
-  //   const list = JSON.parse(window.localStorage.getItem('subTableData') || '{}')
-  //   setSubTableData(list)
-  // }, [])
-
-  // useEffect(() => {
-  //   console.log('subTableData', subTableData)
-  // }, [subTableData])
+  useEffect(() => {
+    const list = JSON.parse(window.localStorage.getItem('subTableData') || '{}')
+    const id = `${d[0] + d[1] + d[2]}`
+    if (list[id]) {
+      // console.log('id', id, 'list[id]', list[id])
+      setShowSubData(true)
+      setSubData(list[id])
+    }
+  }, [d])
 
   const fetchSubData = async (name: string): Promise<void> => {
     setIsOpen(open => !open)
