@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux'
-import { increment, decrement } from '../slices/counterSlice';
+import { changeRemoved } from '../slices/removedSlice';
 
 const Home: NextPage = () => {
   const [data, setData] = useState([])
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const [removed, setRemoved] = useState("")
   const [toggleRemoved, setToggleRemoved] = useState(false)
 
-  const count = useSelector((state: RootStateOrAny) => state.counter.value)
+  const removedValue = useSelector((state: RootStateOrAny) => state.removed.value)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -67,6 +67,7 @@ const Home: NextPage = () => {
   const removeSelected = (value: string) => {
     setSelected(selected => [...selected].filter(item => item !== value))
     setRemoved(value)
+    dispatch(changeRemoved(value))
     setToggleRemoved(value => !value)
   }
 
@@ -124,9 +125,7 @@ const Home: NextPage = () => {
           <div className={styles.resultWrap}>
             <h2>Result</h2>
             <div>
-              <p>count {count}</p>
-              <button onClick={() => dispatch(increment())}>Increment State</button>
-              <button onClick={() => dispatch(decrement())}>Increment State</button>
+              <p>removedValue: {removedValue}</p>
             </div>
             <div className={styles.resultWrapInnerRight}>
               <div className={styles.searchBarWrap}>
