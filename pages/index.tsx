@@ -196,7 +196,6 @@ const TableRow = ({ d, setSelected }: { d: any, setSelected: Function }) => {
     const list = JSON.parse(window.localStorage.getItem('subTableData') || '{}')
     const id = `${d[0] + d[1] + d[2]}`
     if (list[id]) {
-      // console.log('id', id, 'list[id]', list[id])
       setShowSubData(true)
       setSubData(list[id])
     }
