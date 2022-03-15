@@ -78,7 +78,7 @@ const Home: NextPage = () => {
       </Head>
 
       <header className={styles.header}>
-        <Image src="/images/logo.png" alt="logo" width={200} height={73}></Image>
+        <Image src="/images/logo.svg" alt="logo" width={200} height={73}></Image>
       </header>
 
       <nav className={styles.nav}>
