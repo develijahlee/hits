@@ -13,7 +13,6 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState("");
   const [selected, setSelected] = useState<string[]>([])
-  const [removed, setRemoved] = useState("")
   const [toggleRemoved, setToggleRemoved] = useState(false)
 
   const removedValue = useSelector((state: RootStateOrAny) => state.removed.value)
@@ -66,7 +65,6 @@ const Home: NextPage = () => {
 
   const removeSelected = (value: string) => {
     setSelected(selected => [...selected].filter(item => item !== value))
-    setRemoved(value)
     dispatch(changeRemoved(value))
     setToggleRemoved(value => !value)
   }
@@ -124,9 +122,9 @@ const Home: NextPage = () => {
         <>
           <div className={styles.resultWrap}>
             <h2>Result</h2>
-            <div>
+            {/* <div>
               <p>removedValue: {removedValue}</p>
-            </div>
+            </div> */}
             <div className={styles.resultWrapInnerRight}>
               <div className={styles.searchBarWrap}>
                 <input type="text" value={value} onChange={e => setValue(e.target.value)} onKeyDown={(e) => handleOnEnter(e)} />
@@ -179,7 +177,7 @@ const Home: NextPage = () => {
                 </thead>
                 <tbody>
                   {data.map((d) => (
-                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} removed={removed} toggleRemoved={toggleRemoved} />
+                    <TableRow d={d} key={`${d[0] + d[1] + d[2]}`} setSelected={setSelected} toggleRemoved={toggleRemoved} />
                   ))}
                 </tbody>
               </table>
@@ -191,7 +189,7 @@ const Home: NextPage = () => {
   )
 }
 
-const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelected: Function, removed: string, toggleRemoved: boolean }) => {
+const TableRow = ({ d, setSelected, toggleRemoved }: { d: any, setSelected: Function, toggleRemoved: boolean }) => {
   const [subData, setSubData] = useState([])
   const [showSubData, setShowSubData] = useState(false)
   const [subLoading, setSubLoading] = useState(false)
@@ -298,7 +296,7 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
             </td>
           </tr>
           {subData.map((d) => (
-            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected} removed={removed} toggleRemoved={toggleRemoved}></SubTableRow>
+            <SubTableRow key={`${d[0] + d[1] + d[2]}`} d={d} isOpen={isOpen} name={name} setSelected={setSelected} toggleRemoved={toggleRemoved}></SubTableRow>
           ))}
         </>
       ) : (
@@ -309,14 +307,15 @@ const TableRow = ({ d, setSelected, removed, toggleRemoved }: { d: any, setSelec
   )
 }
 
-const SubTableRow = ({ d, isOpen, name, setSelected, removed, toggleRemoved }: { d: any, isOpen: boolean, name: string, setSelected: Function, removed: string, toggleRemoved: boolean }) => {
+const SubTableRow = ({ d, isOpen, name, setSelected, toggleRemoved }: { d: any, isOpen: boolean, name: string, setSelected: Function, toggleRemoved: boolean }) => {
   const [isSelected, setIsSelected] = useState(false)
+  const removedValue = useSelector((state: RootStateOrAny) => state.removed.value)
 
   useEffect(() => {
-    if (removed === name + d[0] + ' ' + d[1] + d[2]) {
+    if (removedValue === name + d[0] + ' ' + d[1] + d[2]) {
       setIsSelected(false)
     }
-  }, [removed, d, name, toggleRemoved])
+  }, [removedValue, d, name, toggleRemoved])
 
   const upDateSelected = (): void => {
     if (isSelected) {
